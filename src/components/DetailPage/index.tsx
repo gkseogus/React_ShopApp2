@@ -5,7 +5,7 @@ import shoesData from '../../data';
 const Inputbar = styled.input`
     width: 200px;
     height: 25px;
-    padding: 10px;
+    margin: 30px;
 `
 
 const DetailPage = () => {
@@ -39,8 +39,8 @@ const DetailPage = () => {
                     <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" alt='shoesItem'/>
                 </div>
                 <div className="col-md-6">
-                    <Inputbar placeholder="숫자만 입력하세요." type='text' value={inputTarget} onChange={handleChange}/>
-                    <h4 className="pt-5">{shoesItems[0].title}</h4>
+                <Inputbar placeholder="숫자만 입력하세요." type='text' value={inputTarget} onChange={handleChange}/>
+                    <h4>{shoesItems[0].title}</h4>
                     <p>{shoesItems[0].content}</p>
                     <p>{shoesItems[0].price}</p>
                     <button className="btn btn-danger">주문하기</button> 
