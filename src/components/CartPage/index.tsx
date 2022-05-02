@@ -1,5 +1,12 @@
 import React from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+
+const CartButton = styled.button`
+    background : red;
+    color : white;
+    padding : 10px;
+`
 
 const CartPage = () => {
 
@@ -8,8 +15,8 @@ const CartPage = () => {
     return (
         <div>
             <h4>카트페이지</h4>
-            <button onClick={() => {navigate('/cart/one')}}>one page</button>
-            <button onClick={() => {navigate('/cart/two')}}>two page</button>
+            <CartButton onClick={() => {navigate('/cart/one')}}>one page</CartButton>
+            <CartButton onClick={() => {navigate('/cart/two')}}>two page</CartButton>
             <Outlet></Outlet>
         </div>
     );
