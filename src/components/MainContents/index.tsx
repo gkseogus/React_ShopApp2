@@ -15,14 +15,30 @@ const MoreBtn = styled.button`
 const MainContents = () => {
 
     const [ shoesItems, setShoesItems ] = useState(shoesData);
+    const [ btnCount, setBtnCount ] = useState(0);
 
     const getApi = () => {
-        axios.get('https://codingapple1.github.io/shop/data2.json')
-        .then((ApiData) => {
-            setShoesItems( [...shoesItems, ...ApiData.data]);
-        }).catch(() => {
-            alert('api 요청 실패');
-        });
+        setBtnCount(btnCount+1);
+        
+        if(btnCount === 0) {
+            axios.get('https://codingapple1.github.io/shop/data2.json')
+            .then((ApiData) => {
+                setShoesItems( [...shoesItems, ...ApiData.data]);
+            }).catch(() => {
+                alert('api 요청 실패');
+            });
+        }
+        else if(btnCount === 1){
+            axios.get('https://codingapple1.github.io/shop/data3.json')
+            .then((ApiData) => {
+                setShoesItems( [...shoesItems, ...ApiData.data]);
+            }).catch(() => {
+                alert('api 요청 실패');
+            });
+        }
+        else if(btnCount >= 2 ){
+            alert('상품이 존재하지 않습니다.');
+        }
     };
 
     return (
