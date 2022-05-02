@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import shoesData from '../../data';
 
 const Inputbar = styled.input`
-    width: 200px;
+    width: 150px;
     height: 25px;
     margin: 30px;
 `
@@ -17,7 +17,7 @@ const DetailPage = () => {
     const [ inputCheck, setInputcheck ] = useState(false);
 
     const handleChange = (e: any) => {
-        const regExp = /^[0-9\b -]{0,13}$/;
+        const regExp = /^[0-9\b -]{0,3}$/;
         if(regExp.test(e.target.value)){
             setInputTarget(e.target.value);
             setInputcheck(true);
@@ -34,9 +34,16 @@ const DetailPage = () => {
     };
 
     const deleteToItem = () => {
-        setInputcheck(false);
-        setInputTarget('');
-        setItemCount(0);
+        const message = '취소 하시겠습니까?'
+        if(window.confirm(message) === true) {
+            setInputcheck(false);
+            setInputTarget('');
+            setItemCount(0);
+            return alert('취소 되었습니다.');
+        }
+        else{
+            return alert('취소');
+        };
     };
 
     const discountItems = (items: any) => {
@@ -72,7 +79,7 @@ const DetailPage = () => {
                     <h6>{discountItems(shoesItems[0].price * itemCount)} 원</h6>
                     <p>기본가(120000원)</p>
                     <Inputbar placeholder="숫자만 입력하세요." type='text' value={inputTarget} onChange={handleChange}/>
-                    <p>{itemCount} 개</p>
+                    <p>{Math.floor(itemCount * 1/10)} 개</p>
                     <button className="btn btn-danger" style={{margin: '10px'}} onClick={addToItem}>수량 추가</button>
                     <button className="btn btn-danger" onClick={deleteToItem}>취소</button>
                     <br/>
