@@ -14,11 +14,13 @@ const DetailPage = () => {
     const [ isAlertHide, setIsAlertHide ] = useState(false);
     const [ inputTarget, setInputTarget ] = useState('');
     const [ itemCount, setItemCount ] = useState(0);
+    const [ inputCheck, setInputcheck ] = useState(false);
 
     const handleChange = (e: any) => {
         const regExp = /^[0-9\b -]{0,13}$/;
         if(regExp.test(e.target.value)){
             setInputTarget(e.target.value);
+            setInputcheck(true);
         };
         if(inputTarget !== ( null ||  undefined )){
             setItemCount(e.target.value);
@@ -26,10 +28,13 @@ const DetailPage = () => {
     };
 
     const addToItem = () => {
-        setItemCount(itemCount+1);
+        if( inputCheck === false ){
+            setItemCount(itemCount+1);
+        };
     };
 
     const deleteToItem = () => {
+        setInputcheck(false);
         setInputTarget('');
         setItemCount(0);
     };
