@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import shoesData from '../../data';
+import { Tabs, Tab } from 'react-bootstrap';
 
 const Inputbar = styled.input`
     width: 150px;
     height: 25px;
     margin: 30px;
 `
-
-const DetailPage = () => {
+const DetailPage = (props: any) => {
 
     const [ shoesItems ] = useState(shoesData);
     const [ isAlertHide, setIsAlertHide ] = useState(false);
     const [ inputTarget, setInputTarget ] = useState('');
     const [ itemCount, setItemCount ] = useState(0);
     const [ inputCheck, setInputcheck ] = useState(false);
+    const [ text, setText ] = useState('');
 
     const handleChange = (e: any) => {
         const regExp = /^[0-9\b -]{0,3}$/;
@@ -56,6 +57,21 @@ const DetailPage = () => {
 
     };
 
+    const TextFun = () => {
+        if(text === '0'){
+            return(
+                <div>1</div>
+            )
+        }
+        else if (text === '1' ){
+            setText('1');
+        }
+        else if (text === '2' ){
+            setText('2');
+        }
+    }
+
+
     useEffect(() => {
         const timer = setTimeout(() => { setIsAlertHide(true) }, 600000);
     
@@ -86,6 +102,17 @@ const DetailPage = () => {
                     <button className="btn btn-danger">주문하기</button> 
                 </div>
             </div>
+            <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example" className="mb-3">
+                <Tab eventKey="home" title="Home" onClick={() => {setText('0')}}>
+                    <div>{text}</div>
+                </Tab>
+                <Tab eventKey="one" title="one" onClick={() => {setText('1')}}>
+                    <div>{text}</div>
+                </Tab>
+                <Tab eventKey="two" title="two" onClick={() => {setText('2')}}>
+                    <div>{text}</div>
+                </Tab>
+            </Tabs>
         </div> 
     );
 };
