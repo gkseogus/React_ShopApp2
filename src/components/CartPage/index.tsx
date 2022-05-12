@@ -1,24 +1,38 @@
 import React from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-
-const CartButton = styled.button`
-    background : red;
-    color : white;
-    padding : 10px;
-`
+import { Table } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 
 const CartPage = () => {
 
-    const navigate = useNavigate();
+    const rootData = useSelector((state: any) => {
+        return state.cartState
+    })
 
     return (
-        <div>
-            <h4>카트페이지</h4>
-            <CartButton onClick={() => {navigate('/cart/one')}}>one page</CartButton>
-            <CartButton onClick={() => {navigate('/cart/two')}}>two page</CartButton>
-            <Outlet></Outlet>
-        </div>
+        <Table>
+            <thead>
+                <tr>
+                <th>#</th>
+                <th>상품명</th>
+                <th>수량</th>
+                <th>변경하기</th>
+                </tr>
+            </thead>
+            <tbody>
+                {
+                    rootData.map((items: any, index: number) => {
+                        return (
+                            <tr key={index}>
+                                <td>{items.id}</td>
+                                <td>{items.name}</td>
+                                <td>{items.count}</td>
+                                <td>변경</td>
+                            </tr>
+                        )
+                    })
+                }
+            </tbody>
+        </Table> 
     );
 };
 
