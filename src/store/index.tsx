@@ -13,6 +13,14 @@ const cartItems = createSlice({
           })
             state[itemsIndex].count += 1
         },
+        deleteCount: (state, action) => {
+          const itemsIndex = state.findIndex((a) => { 
+            return a.id === action.payload
+          })
+          if(state[itemsIndex].count >=1 ){
+            state[itemsIndex].count -= 1
+          }
+        },
         addItem: (state, action) => {
           state.push(action.payload)
         }
@@ -20,7 +28,7 @@ const cartItems = createSlice({
 })
 
 // 디스트럭쳐링 문법
-export const { changeCount, addItem } = cartItems.actions
+export const { changeCount, addItem, deleteCount } = cartItems.actions
 
 export default configureStore({
   reducer: { 
