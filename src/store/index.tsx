@@ -7,14 +7,20 @@ const cartItems = createSlice({
         {id: 2, name: 'Grey Yordan', count: 1},
     ],
     reducers: {
-        changeCount: () => {
-            return 
+        changeCount: (state, action) => {
+          const itemsIndex = state.findIndex((a) => { 
+            return a.id === action.payload
+          })
+            state[itemsIndex].count += 1
+        },
+        addItem: (state, action) => {
+          state.push(action.payload)
         }
     },
 })
 
 // 디스트럭쳐링 문법
-export const { changeCount } = cartItems.actions
+export const { changeCount, addItem } = cartItems.actions
 
 export default configureStore({
   reducer: { 
