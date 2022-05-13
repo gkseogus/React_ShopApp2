@@ -1,7 +1,7 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeCount } from './../../store/index'
+import { changeCount, deleteCount } from './../../store/index'
 
 const CartPage = () => {
 
@@ -29,9 +29,14 @@ const CartPage = () => {
                                 <td>{items.id}</td>
                                 <td>{items.name}</td>
                                 <td>{items.count}</td>
-                                <td><button onClick={() => {
+                                <td>
+                                <button style={{ margin: '5px'}} onClick={() => {
                                     dispatch(changeCount(items.id))
-                                }}>+</button></td>
+                                }}>+</button>
+                                <button onClick={() => {
+                                    dispatch(deleteCount(items.id))
+                                }}>-</button>
+                                </td>
                             </tr>
                         )
                     })
