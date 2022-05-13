@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import shoesData from '../../data';
 import { Tabs, Tab } from 'react-bootstrap';
+import { addItem } from '../../store';
+import { useDispatch } from 'react-redux';
 
 const Inputbar = styled.input`
     width: 150px;
@@ -16,6 +18,7 @@ const DetailPage = (props: any) => {
     const [ itemCount, setItemCount ] = useState(0);
     const [ inputCheck, setInputcheck ] = useState(false);
     const [ text, setText ] = useState('');
+    const dispatch = useDispatch();
 
     const handleChange = (e: any) => {
         const regExp = /^[0-9\b -]{0,3}$/;
@@ -57,21 +60,6 @@ const DetailPage = (props: any) => {
 
     };
 
-    const TextFun = () => {
-        if(text === '0'){
-            return(
-                <div>1</div>
-            )
-        }
-        else if (text === '1' ){
-            setText('1');
-        }
-        else if (text === '2' ){
-            setText('2');
-        }
-    }
-
-
     useEffect(() => {
         const timer = setTimeout(() => { setIsAlertHide(true) }, 600000);
     
@@ -95,11 +83,14 @@ const DetailPage = (props: any) => {
                     <h6>{discountItems(shoesItems[0].price * itemCount)} 원</h6>
                     <p>기본가(120000원)</p>
                     <Inputbar placeholder="숫자만 입력하세요." type='text' value={inputTarget} onChange={handleChange}/>
-                    <p>{Math.floor(itemCount * 1/10)} 개</p>
+                    <p>{Math.floor(itemCount)} 개</p>
                     <button className="btn btn-danger" style={{margin: '10px'}} onClick={addToItem}>수량 추가</button>
                     <button className="btn btn-danger" onClick={deleteToItem}>취소</button>
                     <br/>
-                    <button className="btn btn-danger">주문하기</button> 
+                    <button className="btn btn-danger" onClick={() => { dispatch(addItem({
+                        id:1, name:'red', count:1
+                    }))}
+                    }>주문하기</button> 
                 </div>
             </div>
             <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example" className="mb-3">

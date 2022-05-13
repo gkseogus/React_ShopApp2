@@ -23,6 +23,7 @@ const cartItems = createSlice({
         },
         addItem: (state, action) => {
           state.push(action.payload)
+          alert('해당 상품이 추가되었습니다.')
         }
     },
 })
