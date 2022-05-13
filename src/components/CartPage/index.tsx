@@ -1,12 +1,15 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeCount } from './../../store/index'
 
 const CartPage = () => {
 
     const rootData = useSelector((state: any) => {
         return state.cartState
     })
+
+    const dispatch = useDispatch();
 
     return (
         <Table>
@@ -26,7 +29,9 @@ const CartPage = () => {
                                 <td>{items.id}</td>
                                 <td>{items.name}</td>
                                 <td>{items.count}</td>
-                                <td>변경</td>
+                                <td><button onClick={() => {
+                                    dispatch(changeCount(items.id))
+                                }}>+</button></td>
                             </tr>
                         )
                     })
