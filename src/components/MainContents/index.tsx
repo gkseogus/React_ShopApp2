@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col } from 'react-bootstrap';
 import shoesData  from '../../data.js';
 import axios from 'axios';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-
 
 const MoreBtn = styled.button`
     margin: 20px;
@@ -46,23 +45,25 @@ const MainContents = () => {
     return (
         <div>
             <h1>사진 클릭 시 Detail 페이지로 이동</h1>
-        {
-            shoesItems.map((items: any, index) => {
-                return(
-                    <Container key={index}>
-                        <Row>
-                            <Col xs={{ order: 12 }}>
-                                <img src={`https://codingapple1.github.io/shop/shoes${items.id}.jpg`} 
-                                alt='shoesItem' width='40%' onClick={() => { navigate('/detail') }}/>
-                                <h4>{items.title}</h4>
-                                <p>{items.content}</p>
-                                <p>{items.price}</p>
-                            </Col>
-                        </Row>
-                    </Container>
-                );
-            })
-        }
+            <div>최근 본 상품 이름: {localStorage.getItem('watched')}</div>
+            {
+                shoesItems.map((items: any, index) => {
+                    return(
+                        <Container key={index}>
+                            <Row>
+                                <Col xs={{ order: 12 }}>
+                                    <img src={`https://codingapple1.github.io/shop/shoes${items.id}.jpg`} 
+                                    alt='shoesItem' width='40%' onClick={() => { navigate('/detail');
+                                    localStorage.setItem('watched', items.title)}}/>
+                                    <h4>{items.title}</h4>
+                                    <p>{items.content}</p>
+                                    <p>{items.price}</p>
+                                </Col>
+                            </Row>
+                        </Container>
+                    );
+                })
+            }
             <MoreBtn onClick={getApi}>더보기</MoreBtn>
         </div>
     );
