@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col } from 'react-bootstrap';
 import shoesData  from '../../data.js';
 import axios from 'axios';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { useQuery } from 'react-query';
 
 const MoreBtn = styled.button`
     margin: 20px;
@@ -16,6 +17,14 @@ const MainContents = () => {
 
     const [ shoesItems, setShoesItems ] = useState(shoesData);
     const [ btnCount, setBtnCount ] = useState(0);
+
+    // 실시간 요청에 유용함
+    const apiGet = useQuery('apiGet', () => {
+        return axios.get('').then((a) => {
+            return a.data
+        })
+    })
+
     const navigate = useNavigate();
 
     const getApi = () => {
@@ -46,6 +55,9 @@ const MainContents = () => {
         <div>
             <h1>사진 클릭 시 Detail 페이지로 이동</h1>
             <div>최근 본 상품 이름: {localStorage.getItem('watched')}</div>
+            <div>
+                { apiGet.isLoading ? '로딩중' :  apiGet.data.name }
+            </div>
             {
                 shoesItems.map((items: any, index) => {
                     return(
