@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useTransition } from 'react';
 import { Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeCount, deleteCount } from './../../store/index'
@@ -9,8 +9,15 @@ const CartPage = () => {
         return state.cartState
     })
 
+    const [ isPending, startTransition ] = useTransition();
+
     const dispatch = useDispatch();
 
+    const testFuc = () => {
+        startTransition(() => {
+            // 늦게처리되는 로직 넣으면 됨
+        })
+    }
     return (
         <Table>
             <thead>
